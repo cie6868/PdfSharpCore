@@ -1,3 +1,7 @@
+Modified to force automatic orientation of images using the ImageSharp library. This fixes a bug for some photographs that have their orientations set in EXIF metadata.
+
+Original readme below...
+
 # PdfSharpCore
 
 **PdfSharpCore** is a partial port of [PdfSharp.Xamarin](https://github.com/roceh/PdfSharp.Xamarin/) for .NET Standard
