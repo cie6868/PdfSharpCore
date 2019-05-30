@@ -4,6 +4,7 @@ using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
 using System;
 using System.IO;
 using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 
 namespace PdfSharpCore.Utils
 {
@@ -13,7 +14,9 @@ namespace PdfSharpCore.Utils
         {
             return new ImageSharpImageSourceImpl<TPixel>(name, () =>
             {
-                return Image.Load<TPixel>(imageSource.Invoke());
+                var image = Image.Load<TPixel>(imageSource.Invoke());
+                image.Mutate((img) => { img.AutoOrient(); });
+                return image;
             }, (int)quality);
         }
 
@@ -21,7 +24,9 @@ namespace PdfSharpCore.Utils
         {
             return new ImageSharpImageSourceImpl<TPixel>(path, () =>
             {
-                return Image.Load<TPixel>(path);
+                var image = Image.Load<TPixel>(path);
+                image.Mutate((img) => { img.AutoOrient(); });
+                return image;
             }, (int)quality);
         }
 
@@ -31,7 +36,9 @@ namespace PdfSharpCore.Utils
             {
                 using (var stream = imageStream.Invoke())
                 {
-                    return Image.Load<TPixel>(stream);
+                    var image = Image.Load<TPixel>(stream);
+                    image.Mutate((img) => { img.AutoOrient(); });
+                    return image;
                 }
             }, (int)quality);
         }
